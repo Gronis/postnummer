@@ -1,6 +1,6 @@
 # postnummer
 
-Fetch Swedish zipcodes and metadata such as their closest city, county, municipality and geo-coordinates. The data is fetched from geonames.org which in turns fetch data from the swedish authorities.
+Fetch all Swedish zipcodes and metadata such as their closest city, county, municipality and geo-coordinates. The data is fetched from geonames.org which in turns fetch data from the swedish authorities.
 
 ### Original data sources:
 - scb	Statistics Sweden	http://www.scb.se/
@@ -11,7 +11,7 @@ Fetch Swedish zipcodes and metadata such as their closest city, county, municipa
 Reference: http://www.geonames.org/countries/SE/kingdom-of-sweden.html
 
 ## Usage
-Build and fetch data to `zipcodes.json` file
+First, install dependencies. Then, fetch all ~16000 zipcodes and associated metadata and write it to `zipcodes.json`.
 ```bash
 npm install
 npm run start
