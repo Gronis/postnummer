@@ -1,8 +1,8 @@
 const http = require('http');
 const https = require('https');
 
-const http_request = (url, body, options) => {
-  body = body || "";
+const http_request = (url, options) => {
+  body = options.body || "";
   url = new URL(url);
   const secure = (url.protocol != null && url.protocol.includes('https')) || url.port == 443;
   options = options || {};
