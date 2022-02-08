@@ -1,5 +1,5 @@
 const fs = require('fs').promises;
-const Zip = require('adm-zip');
+const zip = require('./zip');
 const http_request = require('./http_request');
 
 const main = async () => {
@@ -9,40 +9,43 @@ const main = async () => {
         modified_timestamp = stats.mtime.toUTCString();
     } catch (_){}
 
-    const headers = {}
+    const headers = {
+
+    }
 
     // Tell the server when we the last update was fetched.
     if(modified_timestamp){
         headers['If-Modified-Since'] = modified_timestamp
     }
 
-    const res = await http_request("https://download.geonames.org/export/zip/SE.zip", { headers })
+    const res = await http_request("https://download.geonames.org/export/zip/SE.zip", { 
+        headers,
+        buffer: true,
+    })
 
-    if(res.statusCode != 200){
+    if(res.statusCode == 304){
         console.error(`No changes`);
         return;
     }
 
-    const prop_indicies = {
+    if(res.statusCode != 200){
+        console.log("Error: Didn't get status 200:", res)
+        return;
+    }
+
+    const props = Object.entries({
         'zipcode': 1,
         'city': 2,
         'county': 3,
         'municipality': 5,
         'lat': 9,
         'lng': 10,
-    }
+    })
 
-    const props = Object.entries(prop_indicies)
-
-    const zip = new Zip(res.body);
-    const zipEntries = zip.getEntries();
-    const zipcodes = zipEntries
-        .filter(e => e.name == "SE.txt")
-        .map(e => e
-            .getData()
-            .toString('utf8')
-            .split("\n")
-        ).flat()
+    const zipcodes = zip.Reader(res.body).toArray()
+        .filter(e => e.getName() == "SE.txt")
+        .map(e => e.getData().toString('utf8').split("\n"))
+        .flat()
         .map(l => {
             const attrs = l.split('\t')
             if(attrs.length < 10){

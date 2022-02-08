@@ -11,9 +11,9 @@ Fetch all Swedish zipcodes and metadata such as their closest city, county, muni
 Reference: http://www.geonames.org/countries/SE/kingdom-of-sweden.html
 
 ## Usage
-First, install dependencies. Then, fetch all ~16000 zipcodes and associated metadata and write it to `zipcodes.json`.
+No dependencies required.
+To fetch all ~16000 zipcodes and associated metadata and write it to `zipcodes.json`:
 ```bash
-npm install
 npm run start
 ```
 ## Example

@@ -1,6 +1,6 @@
 {
   "name": "postnummer",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -9,7 +9,5 @@
   },
   "author": "Robin Grönberg <robingronberg@gmail.com>",
   "license": "ISC",
-  "dependencies": {
-    "adm-zip": "^0.5.9"
-  }
+  "dependencies": {}
 }
